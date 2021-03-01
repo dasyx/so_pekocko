@@ -11,7 +11,7 @@ const sauceSchema = mongoose.Schema({
   // Description de la sauce
   description: { type: String, required: true },
   // Ingrédient principal
-  mainPepper: { type: Number, required: true },
+  mainPepper: { type: String, required: true },
   // Adresse de la photo de présentation
   imageUrl: { type: String, required: true },
   // Indice de puissance de la sauce
