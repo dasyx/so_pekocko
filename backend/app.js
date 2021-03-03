@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 // Importation du routeur contenant les routes vers les sauces
 const saucesRoutes = require('./routes/sauces');
-
+// Importation du routeur contenant les middlewares d'authentification
+const userRoutes = require('./routes/user');
 
 // Connection au cluster MongoDB
 mongoose.connect('mongodb+srv://dasyx:mzQyjOdjJNajPMqL@cluster0.ap1uo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -27,5 +28,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api/sauces', saucesRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
