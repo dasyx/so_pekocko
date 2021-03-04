@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const saucesRoutes = require('./routes/sauces');
 // Importation du routeur contenant les middlewares d'authentification
 const userRoutes = require('./routes/user');
+// Importation qui donne accès au système de fichiers
+const path = require('path');
 
 // Connection au cluster MongoDB
 mongoose.connect('mongodb+srv://dasyx:mzQyjOdjJNajPMqL@cluster0.ap1uo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -26,6 +28,9 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+// Ce middleware répondra aux requêtes envoyées à /images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);

@@ -6,15 +6,17 @@ const router = express.Router();
 const sauceCtrl = require('../controllers/sauces');
 // Importation du middleware d'authentification
 const auth = require('../middleware/auth');
+// Importation du middleware qui permettra de gérer les fichiers entrant
+const multer = require('../middleware/multer-config');
 
 /* Voici la logique de routes de l'api :
 =======================================*/
 
 // La route suivante permettra de créer une sauce
-router.post('/', auth, sauceCtrl.createSauce);
+router.post('/', auth, multer, sauceCtrl.createSauce);
 
 // La route suivante permettra de modifier une sauce et de la mettre à jour
-router.put('/:id', auth, sauceCtrl.modifySauce);
+router.put('/:id', auth, multer, sauceCtrl.modifySauce);
 
 // La route suivante permettra de supprimer une sauce
 router.delete('/:id', auth, sauceCtrl.deleteSauce);
