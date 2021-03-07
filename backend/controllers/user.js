@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 // Importation du package pour créer des tokens et de les vérifier
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/User');
+const User = require('../models/user');
 
 /* Ajout de deux middlewares d'authentification
 ================================================*/

@@ -1,6 +1,8 @@
 const express = require('express');
 // Importation du package pour extraire l'objet JSON de la demande
 const bodyParser = require('body-parser');
+// Importation du package helmet pour sécuriser la requête http
+const helmet = require('helmet');
 // Importation du package mongoose pour accèder à la base de données
 const mongoose = require('mongoose');
 // Importation du routeur contenant les routes vers les sauces
@@ -28,6 +30,8 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+app.use(helmet());
 
 // Ce middleware répondra aux requêtes envoyées à /images
 app.use('/images', express.static(path.join(__dirname, 'images')));
