@@ -14,17 +14,15 @@ const multer = require('../middleware/multer-config');
 
 // La route suivante permettra de créer une sauce
 router.post('/', auth, multer, sauceCtrl.createSauce);
-
 // La route suivante permettra de modifier une sauce et de la mettre à jour
 router.put('/:id', auth, multer, sauceCtrl.modifySauce);
-
 // La route suivante permettra de supprimer une sauce
 router.delete('/:id', auth, sauceCtrl.deleteSauce);
-
 // La route suivante permettra d'afficher une sauce spécifique
 router.get('/:id', auth, sauceCtrl.getOneSauce);
-
 // La route suivante permettra de récupérer toutes les sauces
 router.get('/', auth, sauceCtrl.getAllSauces);
+// La route suivante permettra de gérer les likes/dislikes utilisateur
+router.post('/:id/like', auth, sauceCtrl.likeDislikeSauce);
 
 module.exports = router;
