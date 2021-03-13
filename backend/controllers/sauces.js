@@ -57,27 +57,24 @@ exports.deleteSauce = (req, res, next) => {
 };
 // Exportations d'une fonction pour gérer les likes/dislikes d'une sauce
 exports.likeDislikeSauce = (req, res, next) => {
-  console.log({ _id: req.params.id });
-  console.log({ likes: req.body.like });
-  console.log({ usersLiked: req.body.userId });
-
   const sauceObject = req.body;
   console.log(sauceObject);
-
+// Si le corps de la requête renvoit un like
   if (sauceObject.like === 1) {
     Sauce.updateOne(
       { _id: req.params.id },
-      {
+      { // On incrémente un like de 1
         $inc: { likes: +1 },
         $push: { usersLiked: req.body.userId },
       }
     )
       .then(() => res.status(200).json({ message: "Like ajouté !" }))
       .catch((error) => res.status(400).json({ error }));
+// Si le corps de la requête renvoit un dislike
   } else if (sauceObject.like === -1) {
     Sauce.updateOne(
       { _id: req.params.id },
-      {
+      { // On incrémente un dislike de 1
         $inc: { dislikes: +1 },
         $push: { usersDisliked: req.body.userId },
       }
@@ -88,6 +85,7 @@ exports.likeDislikeSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
       .then((sauce) => {
         console.log(sauce);
+        // Dans le cas d'annulation d'un like
         if (sauce.usersLiked.includes(req.body.userId)) {
           Sauce.updateOne(
             { _id: req.params.id },
@@ -98,6 +96,7 @@ exports.likeDislikeSauce = (req, res, next) => {
           )
             .then(() => res.status(200).json({ message: "Like supprimé !" }))
             .catch((error) => res.status(400).json({ error }));
+        // Dans le cas d'annulation d'un dislike
         } else if (sauce.usersDisliked.includes(req.body.userId)) {
           Sauce.updateOne(
             { _id: req.params.id },

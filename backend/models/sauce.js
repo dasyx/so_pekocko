@@ -17,9 +17,9 @@ const sauceSchema = mongoose.Schema({
   // Indice de puissance de la sauce
   heat: { type: Number, required: true },
   // Nombre de mentions j'aime de la sauce
-  likes: { type: Number, },
+  likes: { type: Number, default: 0 },
   // Nombre de mentions je n'aime pas
-  dislikes: { type: Number, },
+  dislikes: { type: Number, default: 0 },
   // Tableau d'utilisateurs ayant aimé la sauce
   usersLiked: { type: [String] },
   // Tableau d'utilisateurs n'ayant pas aimé la sauce

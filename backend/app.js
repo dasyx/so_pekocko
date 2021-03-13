@@ -11,6 +11,10 @@ const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 // Importation qui donne accès au système de fichiers
 const path = require('path');
+// Importation du package qui protège contre les injections SQL
+const mongoSanitize = require('express-mongo-sanitize');
+// Importation qui prévient contre les attaques XSS
+const xss = require('xss');
 
 // Connection au cluster MongoDB
 mongoose.connect('mongodb+srv://dasyx:mzQyjOdjJNajPMqL@cluster0.ap1uo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -20,6 +24,10 @@ mongoose.connect('mongodb+srv://dasyx:mzQyjOdjJNajPMqL@cluster0.ap1uo.mongodb.ne
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
+
+// Afin de prévenir les attaques DDOS,
+// On limitera le payload qu'un utilisateur pourra soumettre à l'API
+app.use(express.json({ limit: '10kb' }));
 
 // Grâce à ces headers, on pourra accèder notre API depuis n'importe quelle origine, et envoyer différents types de requêtes
 app.use((req, res, next) => {
@@ -31,7 +39,26 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      reportUri: '/report-violation',
+      objectSrc: ["'self'"],
+      upgradeInsecureRequests: true,
+    },
+  },
+  referrerPolicy: { policy: 'same-origin' },
+  featurePolicy: {},
+}));
+
+// Sanitization des données contre les attaques injections SQL
+app.use(mongoSanitize());
+
+// Sanitization des données contres les attaques XSS
+app.use(xss());
 
 // Ce middleware répondra aux requêtes envoyées à /images
 app.use('/images', express.static(path.join(__dirname, 'images')));
