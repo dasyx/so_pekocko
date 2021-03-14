@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     if (!passSchema.validate(req.body.password)) {
       return res.status(400).json({
         error:
-          "Mot de passe pas assez fort, doit comporter au moins une majuscule et une minuscule, 1 chiffre, sans espace et d'une longueur de 8 caractères !" +
+          "Mdp pas assez fort, au moins une majuscule et une minuscule, 1 chiffre, sans espace, 8 caractères mini, 50 max !" +
           passSchema.validate("Réessayez !", { list: true }),
       });
     } else {

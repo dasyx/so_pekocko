@@ -28,6 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongo-sanitize": "^1.1.0",
     "mongoose": "^5.11.19",
+    "mongoose-sanitizer-plugin": "^1.1.0",
     "mongoose-type-email": "^1.1.2",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
