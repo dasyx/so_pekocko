@@ -33,15 +33,30 @@ exports.getAllSauces = (req, res, next) => {
 };
 // Exportation d'une fonction pour la modification d'une sauce
 exports.modifySauce = (req, res, next) => {
-  const sauceObject = req.file ?
-    {
+  let sauceObject = {}; 
+  req.file ? (
+// Utilisation de l'opérateur ternaire si une image est trouvée lors de la modif 
+  Sauce.findOne({_id: req.params.id})
+    .then((sauce) => {
+// Suppression de l'ancienne image du serveur
+      const filename = sauce.imageUrl.split('/images/')[1]
+      fs.unlinkSync(`images/${filename}`)
+    }),
+    sauceObject = {
       ...JSON.parse(req.body.sauce),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
-  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Sauce modifiée !'}))
-    .catch((error) => res.status(400).json({ error }));
-};
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    }
+) : (
+// L'opérateur ternaire va vérifier la condition :
+// Si la modif n'ajoute pas de nouvelle image à la sauce
+  sauceObject = {...req.body})
+// On applique les paramètres de sauceObject
+// Modification des données et ajout d'une nouvelle image
+  Sauce.updateOne({_id: req.params.id}, {...sauceObject, _id: req.params.id})
+  .then(() => res.status(200).json({message: 'Sauce modifiée !'}))
+  .catch((error) => res.status(400).json({error}))
+}
+
 // Exportation d'une fonction pour la suppression d'une sauce
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
