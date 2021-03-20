@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+// Importation du plugin Mongoose pour purifier les inputs du modèle
+const sanitizerPlugin = require('mongoose-sanitizer-plugin');
+
+// Appel le middleware de validation des champs du model de la sauce
+const sauceVerification = require('../middleware/sauceVerification');
+
 // Création d'un schéma de données strictes pour cadrer avec le modèle de sauces. Certains champs seront obligatoires.
 const sauceSchema = mongoose.Schema({
   // Identifiant du créateur de la sauce  
@@ -25,5 +31,8 @@ const sauceSchema = mongoose.Schema({
   // Tableau d'utilisateurs n'ayant pas aimé la sauce
   usersDisliked:{ type: [String] }
 });
+
+// Appel du plugin Mongoose pour assainir les champs de saisie du schema avant de les renvoyer dans la base de données MongoDB
+sauceSchema.plugin(sanitizerPlugin);
 
 module.exports = mongoose.model('Sauce', sauceSchema);
