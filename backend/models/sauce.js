@@ -4,20 +4,20 @@ const mongoose = require('mongoose');
 const sanitizerPlugin = require('mongoose-sanitizer-plugin');
 
 // Appel le middleware de validation des champs du model de la sauce
-const sauceVerification = require('../middleware/sauceVerification');
+const sauceValidation = require('../middleware/sauceValidation');
 
 // Création d'un schéma de données strictes pour cadrer avec le modèle de sauces. Certains champs seront obligatoires.
 const sauceSchema = mongoose.Schema({
   // Identifiant du créateur de la sauce  
   userId: { type: String, required: true },
   // Nom de la sauce
-  name: { type: String, required: true },
+  name: { type: String, required: true, validate: sauceValidation.nameValidator },
   // Nom du créateur de la sauce
-  manufacturer: { type: String, required: true },
+  manufacturer: { type: String, required: true, validate: sauceValidation.manufacturerValidator },
   // Description de la sauce
-  description: { type: String, required: true },
+  description: { type: String, required: true, validate: sauceValidation.descriptionValidator },
   // Ingrédient principal
-  mainPepper: { type: String, required: true },
+  mainPepper: { type: String, required: true, validate: sauceValidation.pepperValidator },
   // Adresse de la photo de présentation
   imageUrl: { type: String, required: true },
   // Indice de puissance de la sauce
@@ -35,4 +35,5 @@ const sauceSchema = mongoose.Schema({
 // Appel du plugin Mongoose pour assainir les champs de saisie du schema avant de les renvoyer dans la base de données MongoDB
 sauceSchema.plugin(sanitizerPlugin);
 
+// Exportation du schéma de données
 module.exports = mongoose.model('Sauce', sauceSchema);
