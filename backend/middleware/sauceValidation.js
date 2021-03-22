@@ -1,5 +1,4 @@
 const validate = require('mongoose-validator'); // Appel du plugin mongoose-validator
-const regex = /^[a-z0-9\-_\s]+$/gi;
 
 // Création du processus de validation de chaque input de l'élément sauce
 
@@ -12,7 +11,7 @@ exports.nameValidator = [
     }),
     validate({
         validator: 'matches',
-        arguments: regex, // Utilisation de regex
+        arguments: /^[a-z0-9\-_\s]+$/gi, // Utilisation de regex
         message: "Vous pourrez nommer votre sauce à l'aide de chiffres, de lettres, et de tirets si vous le voulez !",
     }),
 ];
@@ -25,7 +24,7 @@ exports.manufacturerValidator = [
     }),
     validate({
         validator: 'matches',
-        arguments: regex, // Utilisation de regex
+        arguments: /^[a-z\d\-_\s]+$/i, // Utilisation de regex
         message: "Vous pourrez nommer le fabricant votre sauce à l'aide de chiffres, de lettres, et de tirets si vous le voulez !",
     }),
 ];
@@ -33,12 +32,12 @@ exports.manufacturerValidator = [
 exports.descriptionValidator = [ //  Validation pour la decription de la sauce
     validate({
         validator: 'isLength',
-        arguments: [20, 200],
+        arguments: [1, 200],
         message: 'Décrivez cette sauce avec minimum 20 et maximum 200 caractères',
     }),
-    validate({
+     validate({
         validator: 'matches',
-        arguments: regex, // Regex pour restreindre le type de symboles pour la description de la sauce
+        arguments: /^[a-z\d\-_\s]+$/i, // Regex pour restreindre le type de symboles pour la description de la sauce
         message: "Vous ne pourrez utiliser que des chiffres et des lettres pour écrire une description de cette sauce",
     }),
   ];
@@ -51,7 +50,7 @@ exports.descriptionValidator = [ //  Validation pour la decription de la sauce
     }),
     validate({
         validator: 'matches',
-        arguments: regex, // Regex pour restreindre le type de symboles pour la description de la sauce
+        arguments: /^[a-z\d\-_\s]+$/i, // Regex pour restreindre le type de symboles pour la description de la sauce
         message: "Vous ne pourrez utiliser que des chiffres et des lettres pour définir l'ingrédient principal de cette sauce",
     }),
   ];
