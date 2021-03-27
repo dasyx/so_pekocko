@@ -20,8 +20,11 @@ const xss = require('xss-clean');
 // Importation du package gérant la connexion par cookie
 const cookieSession = require('cookie-session');
 
-// Connection au cluster MongoDB
-mongoose.connect('mongodb+srv://dasyx:mzQyjOdjJNajPMqL@cluster0.ap1uo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+// Utilisation de variable d'environnement pour dissimuler les infos de connexion
+require('dotenv').config();
+
+// Connection au cluster MongoDB incluant la variable d'environnement du fichier .env
+mongoose.connect(process.env.DB_CONNECT,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -40,7 +43,7 @@ app.use((req, res, next) => {
 // Sécurisation de la session et paramètrage du cookie de la session
 app.use(cookieSession({
   name: 'session',
-  secret: 'laVid@L0ca',
+  secret: process.env.COOKIE_SESS,
   cookie: {
     secure: true,
     httpOnly: true,
