@@ -49,7 +49,7 @@ exports.login = (req, res, next) => {
                 // On encode le userId pour la création de nouveaux objets
                 // On ne pourra pas modifier un objet crée par un autre utilisateur
                 { userId: user._id },
-                'RANDOM_TOKEN_SECRET',
+                  process.env.SECRET,
                 // Ci-dessous l'argument de configuration
                 { expiresIn: '24h' }
               )
