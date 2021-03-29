@@ -1,4 +1,3 @@
-require('dotenv').config();
 // Création d'un middleware qui va sécuriser les routes sélectionnées, contrôler que l'utilisateur est authentifié et va vérifier l'envoi de ses requêtes.
 
 // Récupération du package jsonwebtoken

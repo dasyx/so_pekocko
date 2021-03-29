@@ -11,7 +11,7 @@ exports.nameValidator = [
     }),
     validate({
         validator: 'matches',
-        arguments: /^[a-z0-9\-_\s]+$/gi, // Utilisation de regex
+        arguments: /^[a-zA-Z0-9\ \-_\s]+$/gi, // Utilisation de regex
         message: "Vous pourrez nommer votre sauce à l'aide de chiffres, de lettres, et de tirets si vous le voulez !",
     }),
 ];
@@ -24,7 +24,7 @@ exports.manufacturerValidator = [
     }),
     validate({
         validator: 'matches',
-        arguments: /^[a-z\d\-_\s]+$/i, // Utilisation de regex
+        arguments: /^[a-zA-Z\d\ \-_\s]+$/i, // Utilisation de regex
         message: "Vous pourrez nommer le fabricant votre sauce à l'aide de chiffres, de lettres, et de tirets si vous le voulez !",
     }),
 ];
@@ -37,7 +37,7 @@ exports.descriptionValidator = [ //  Validation pour la decription de la sauce
     }),
      validate({
         validator: 'matches',
-        arguments: /^[a-z\d\-_\s]+$/i, // Regex pour restreindre le type de symboles pour la description de la sauce
+        arguments: /^[a-zA-Z\d\ \-_\s]+$/i, // Regex pour restreindre le type de symboles pour la description de la sauce
         message: "Vous ne pourrez utiliser que des chiffres et des lettres pour écrire une description de cette sauce",
     }),
   ];
@@ -50,7 +50,7 @@ exports.descriptionValidator = [ //  Validation pour la decription de la sauce
     }),
     validate({
         validator: 'matches',
-        arguments: /^[a-z\d\-_\s]+$/i, // Regex pour restreindre le type de symboles pour la description de la sauce
+        arguments: /^[a-zA-Z\d\ \-_\s]+$/i, // Regex pour restreindre le type de symboles pour la description de la sauce
         message: "Vous ne pourrez utiliser que des chiffres et des lettres pour définir l'ingrédient principal de cette sauce",
     }),
   ];
