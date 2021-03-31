@@ -25,6 +25,7 @@
     "express-mongo-sanitize": "^2.0.2",
     "express-rate-limit": "^5.2.6",
     "express-validator": "^6.10.0",
+    "fs": "0.0.1-security",
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongo-sanitize": "^1.1.0",

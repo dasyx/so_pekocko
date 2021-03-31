@@ -1,11 +1,12 @@
+// Utilisation de l'algorithme bcrypt pour hasher le mot de passe des utilisateurs
 const bcrypt = require('bcrypt');
-// Importation du package pour créer des tokens et de les vérifier
+// Importation du package pour créer des tokens et de les vérifier au moment de la connexion
 const jwt = require('jsonwebtoken');
-
+// Récupération du modèle User, crée avec le schéma Mongoose
 const User = require('../models/user');
 
-/* Ajout de deux middlewares d'authentification
-================================================*/
+/* Ajout de deux middlewares d'authentification, inscription et connexion
+===========================================================================*/
 
 exports.signup = (req, res, next) => {
     // On appelle la méthode hash de bcrypt qui sera la fonction de cryptage de mot de passe

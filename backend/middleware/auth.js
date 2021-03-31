@@ -3,6 +3,9 @@
 // Récupération du package jsonwebtoken
 const jwt = require('jsonwebtoken');
 
+// Vérification du token utilisateur, si correspondance avec l'id de l'utilisateur dans la requête, il sera autorisé à changer les données qui lui sont liées.
+
+// Middleware d'authentification appliqué à toutes les routes de manière à les sécuriser
 module.exports = (req, res, next) => {
   try {
     // On récupère le token dans le header de la requête
