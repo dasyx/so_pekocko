@@ -15,7 +15,7 @@ const rateLimit = require("express-rate-limit");
 // Va protéger l'API des attaques brute force
 const limitation = rateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
-  max: 3, // Limite à 3 tentatives par adresse IP
+  max: 5, // Limite à 3 tentatives par adresse IP
   message: "Nombre de requêtes abusives détectées , attendez 5 minutes avant nouvel essai",
 });
 

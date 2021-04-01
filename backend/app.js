@@ -1,6 +1,4 @@
 const express = require('express');
-// Importation du package pour extraire l'objet JSON de la demande
-const bodyParser = require('body-parser');
 // Importation du package helmet pour sécuriser la requête http
 const helmet = require('helmet');
 // Importation du package nocache pour éviter la mise en cache dans le navigateur
@@ -52,7 +50,8 @@ app.use(cookieSession({
   }
 }))
 
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 app.use(xss());
 
