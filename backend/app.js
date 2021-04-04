@@ -1,8 +1,6 @@
 const express = require('express');
 // Importation du package helmet pour sécuriser la requête http
 const helmet = require('helmet');
-// Importation du package nocache pour éviter la mise en cache dans le navigateur
-const nocache = require('nocache');
 // Importation du package mongoose pour accèder à la base de données
 const mongoose = require('mongoose');
 // Importation du routeur contenant les routes vers les sauces
@@ -60,9 +58,6 @@ app.use(xss());
 app.use(express.json({ limit: '5kb' }));
 
 app.use(helmet());
-
-// Supprime la mise en cache du navigateur
-app.use(nocache());
 
 // Sanitization des données contre les attaques injections SQL
 app.use(mongoSanitize());
